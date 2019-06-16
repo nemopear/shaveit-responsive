@@ -5,9 +5,6 @@ function ShaveContent(element) {
     this.shaveParagraph = $(element);
     this.textString = $(element).text();
     
-    this.tabletQuery = Modernizr.mq('(min-width: 768px)');
-    this.laptopQuery = Modernizr.mq('(min-width: 992px)');
-
     this.init = function() {
         this.viewPort();
         this.onScreenChange();
@@ -27,21 +24,15 @@ function ShaveContent(element) {
         this.setLinesResponsive();
         this.viewPort();
         var character ='<span>Readmore</span>';
-        setTimeout(function() {
-            //var hasShave = context.shaveParagraph.children().hasClass('js-shave-char');
-            //console.log(context.shaveParagraph.children());
-        },1000);
         if(this.setLinesResponsive()) {
             if(context.isMobile) {
                 if (context.responsiveMobile === 'auto') {
-                    //shave(context.shaveParagraph, 1000, {character: '<span class="text-success">Readmore</span>'});
                     console.log('mobile auto');
                     var hasShave = context.shaveParagraph.children().hasClass('js-shave-char');
 
                     if (hasShave) {
                         var textFull = context.textString;
                         context.shaveParagraph.text(textFull);
-                        //shave(context.shaveParagraph, auto);
                     }
                 } else {
                     shave(context.shaveParagraph, parseInt(context.responsiveMobile));
@@ -126,14 +117,7 @@ function ShaveContent(element) {
                 this.isTablet = false;
                 this.isMobile = true;
             }
-        }        
-        // if (context.laptopQuery) {
-        //     console.log('laptop');
-        // } else if(context.tabletQuery) {
-        //     console.log('tablet');
-        // } else {
-        //     console.log('mobile');
-        // }
+        } 
     }
 
     context = this;
