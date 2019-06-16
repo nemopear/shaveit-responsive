@@ -3,6 +3,8 @@ function ShaveContent(element) {
     this.body = $('body');
     this.html = $('html');
     this.shaveParagraph = $(element);
+    this.textString = $(element).text();
+    
     this.tabletQuery = Modernizr.mq('(min-width: 768px)');
     this.laptopQuery = Modernizr.mq('(min-width: 992px)');
 
@@ -15,18 +17,36 @@ function ShaveContent(element) {
     this.onScreenChange = function () {
         $(window).resize(function () {
             context.viewPort();
-            context.responsiveOptions();
+            setTimeout(function() {
+                context.responsiveOptions();
+            },200);
         });
     }
 
     this.responsiveOptions = function () {
         this.setLinesResponsive();
         this.viewPort();
-        console.log(parseInt(context.responsiveMobile));
+        var character ='<span>Readmore</span>';
+        setTimeout(function() {
+            //var hasShave = context.shaveParagraph.children().hasClass('js-shave-char');
+            //console.log(context.shaveParagraph.children());
+        },1000);
         if(this.setLinesResponsive()) {
             if(context.isMobile) {
-                shave(context.shaveParagraph, parseInt(context.responsiveMobile));
-                console.log('Shave Mobile max-height: ' + parseInt(this.responsiveMobile));
+                if (context.responsiveMobile === 'auto') {
+                    //shave(context.shaveParagraph, 1000, {character: '<span class="text-success">Readmore</span>'});
+                    console.log('mobile auto');
+                    var hasShave = context.shaveParagraph.children().hasClass('js-shave-char');
+
+                    if (hasShave) {
+                        var textFull = context.textString;
+                        context.shaveParagraph.text(textFull);
+                        //shave(context.shaveParagraph, auto);
+                    }
+                } else {
+                    shave(context.shaveParagraph, parseInt(context.responsiveMobile));
+                    console.log('Shave Mobile max-height: ' + parseInt(this.responsiveMobile));
+                }
             } else if (context.isTablet) {
                 shave(context.shaveParagraph, parseInt(context.responsiveTablet));
                 console.log('Shave Tablet max-height: ' + parseInt(this.responsiveTablet));
